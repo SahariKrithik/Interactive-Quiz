@@ -64,7 +64,7 @@ Interactive-Quiz/
 ├── style/
 │   └── style.css      # Styling (Theme, Animations, Responsiveness)
 ├── assets/
-│   ├── *.png,         # All quiz images & background
+│   ├── *.png, *.jpg   # All quiz images & background
 └── README.md          # Project documentation (this file)
 ```
 
