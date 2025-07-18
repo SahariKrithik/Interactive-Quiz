@@ -1,3 +1,27 @@
+// Helper Functions
+function shuffleArray(arr) {
+    return [...arr].sort(() => Math.random() - 0.5);
+}
+
+function createElement(tag, className, textContent) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (textContent) el.textContent = textContent;
+    return el;
+}
+
+function updateTimerDisplay(el, timeLeft) {
+    if (el) el.textContent = `Time Left: ${timeLeft}s`;
+}
+
+function resetQuizState() {
+    currentQuestionIndex = 0;
+    score = 0;
+    userAnswers = [];
+    totalTime = 0;
+    questionTimeLeft = 20;
+}
+
 let quizQuestions = [
     {
         question: "What is the capital of France?",
@@ -80,13 +104,6 @@ let quizQuestions = [
     }, 
 ]
 
-document.getElementById("start-button").addEventListener("click", () => {
-    document.getElementById("start-screen").style.display = "none";
-    quizWrapper.style.display = "block";
-
-    setupQuiz();
-});
-
 quizQuestions.sort(() => Math.random() - 0.5);
 
 let currentQuestionIndex = 0;
@@ -101,29 +118,28 @@ const quizWrapper = document.getElementById("quiz-wrapper");
 const quizContainer = document.getElementById("quiz");
 const resultContainer = document.getElementById("result");
 
+// Start Button Event
+document.getElementById("start-button").addEventListener("click", () => {
+    document.getElementById("start-screen").style.display = "none";
+    quizWrapper.style.display = "block";
+    setupQuiz();
+});
 
-
+// Main Setup
 function setupQuiz() {
-    // Reset state
-    currentQuestionIndex = 0;
-    score = 0;
-    userAnswers = [];
-    totalTime = 0;
-    questionTimeLeft = 20;
-
-    // Shuffle questions
+    resetQuizState();
     quizQuestions.sort(() => Math.random() - 0.5);
+    quizContainer.style.display = "block";
 
-    // Create progress and timer
-    const progressDisplay = document.createElement("div");
+    const progressDisplay = createElement("div");
     progressDisplay.id = "progress";
     quizContainer.before(progressDisplay);
 
-    const timerDisplay = document.createElement("div");
+    const timerDisplay = createElement("div");
     timerDisplay.id = "timer";
     quizContainer.before(timerDisplay);
 
-    quizTimer = setInterval(() => { totalTime++; }, 1000);
+    quizTimer = setInterval(() => totalTime++, 1000);
     displayQuestion(progressDisplay, timerDisplay);
 }
 
@@ -138,29 +154,23 @@ function displayQuestion(progressDisplay, timerDisplay) {
     }
 
     const q = quizQuestions[currentQuestionIndex];
-    const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
-
+    const shuffledOptions = shuffleArray(q.options);
 
     progressDisplay.textContent = `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
 
     questionTimeLeft = 20;
-    if (timerDisplay) {
-        timerDisplay.textContent = `Time Left: ${questionTimeLeft}s`;
-    }
+    updateTimerDisplay(timerDisplay, questionTimeLeft);
 
     questionTimer = setInterval(() => {
         questionTimeLeft--;
-        if(timerDisplay){
-            timerDisplay.textContent = `Time Left: ${questionTimeLeft}s`;
-        }
-        
+        updateTimerDisplay(timerDisplay, questionTimeLeft);
 
         if (questionTimeLeft === 0) {
             clearInterval(questionTimer);
             userAnswers.push({
                 selected: null,
                 correct: q.answer,
-                options: q.options,
+                options: shuffledOptions,
                 question: q.question
             });
             currentQuestionIndex++;
@@ -168,21 +178,15 @@ function displayQuestion(progressDisplay, timerDisplay) {
         }
     }, 1000);
 
-    const questionDiv = document.createElement("div");
-    questionDiv.classList.add("question");
+    const questionDiv = createElement("div", "question");
+    questionDiv.appendChild(createElement("h3", "", q.question));
 
-    const questionTitle = document.createElement("h3");
-    questionTitle.textContent = q.question;
-    questionDiv.appendChild(questionTitle);
-
-    const img = document.createElement("img");
+    const img = createElement("img", "quiz-image");
     img.src = q.image;
     img.alt = `Image for question ${currentQuestionIndex + 1}`;
-    img.classList.add("quiz-image");
     questionDiv.appendChild(img);
 
-    const optionsContainer = document.createElement("div");
-    optionsContainer.classList.add("options-container");
+    const optionsContainer = createElement("div", "options-container");
 
     shuffledOptions.forEach((option, i) => {
         const optionInput = document.createElement("input");
@@ -191,10 +195,8 @@ function displayQuestion(progressDisplay, timerDisplay) {
         optionInput.value = option;
         optionInput.id = `option${currentQuestionIndex}_${i}`;
 
-        const optionLabel = document.createElement("label");
+        const optionLabel = createElement("label", "option-label", option);
         optionLabel.setAttribute("for", optionInput.id);
-        optionLabel.classList.add("option-label");
-        optionLabel.textContent = option;
 
         optionInput.addEventListener("change", () => {
             document.querySelectorAll(`input[name="question"]`).forEach(input => {
@@ -209,33 +211,26 @@ function displayQuestion(progressDisplay, timerDisplay) {
 
     questionDiv.appendChild(optionsContainer);
 
-    const hint = document.createElement("p");
-    hint.textContent = q.hint;
+    // Hint
+    const hint = createElement("p", "hint-text", q.hint);
     hint.style.display = "none";
-    hint.classList.add("hint-text");
 
-    const hintButton = document.createElement("button");
-    hintButton.textContent = "Show Hint";
-    hintButton.classList.add("quiz-button", "hint-button");
-
+    const hintButton = createElement("button", "quiz-button hint-button", "Show Hint");
+    hintButton.style.fontStyle = "italic";
     hintButton.addEventListener("click", () => {
         hint.style.display = "block";
         hintButton.style.display = "none";
     });
 
-    const nextButton = document.createElement("button");
-    nextButton.textContent = "Submit Answer";
-    nextButton.classList.add("quiz-button", "submit-button");
-
+    // Submit
+    const nextButton = createElement("button", "quiz-button submit-button", "Submit Answer");
     nextButton.addEventListener("click", () => {
         clearInterval(questionTimer);
 
         const selected = document.querySelector('input[name="question"]:checked');
         const answer = selected ? selected.value : null;
 
-        if (answer === q.answer) {
-            score++;
-        }
+        if (answer === q.answer) score++;
 
         userAnswers.push({
             selected: answer,
@@ -248,14 +243,12 @@ function displayQuestion(progressDisplay, timerDisplay) {
         displayQuestion(progressDisplay, timerDisplay);
     });
 
-    const buttonGroup = document.createElement("div");
-    buttonGroup.classList.add("button-group");
+    const buttonGroup = createElement("div", "button-group");
     buttonGroup.appendChild(hintButton);
     buttonGroup.appendChild(nextButton);
 
     questionDiv.appendChild(hint);
     questionDiv.appendChild(buttonGroup);
-
     quizContainer.appendChild(questionDiv);
 }
 
@@ -263,7 +256,7 @@ function finishQuiz() {
     clearInterval(quizTimer);
     clearInterval(questionTimer);
 
-    document.getElementById("quiz").style.display = "none";
+    quizContainer.style.display = "none";
     document.getElementById("progress").remove();
     document.getElementById("timer").remove();
 
@@ -278,7 +271,7 @@ function finishQuiz() {
     `;
 
     userAnswers.forEach((ans, idx) => {
-        const reviewDiv = document.createElement("div");
+        const reviewDiv = createElement("div");
         reviewDiv.style.marginBottom = "15px";
         reviewDiv.style.padding = "10px";
         reviewDiv.style.border = "1px solid #ccc";
@@ -288,9 +281,7 @@ function finishQuiz() {
         const qNum = idx + 1;
         reviewDiv.innerHTML += `<strong>Q${qNum}: ${ans.question}</strong>`;
 
-        const isUnanswered = ans.selected === null;
-
-        if (isUnanswered) {
+        if (ans.selected === null) {
             reviewDiv.innerHTML += `<span class="unanswered-tag">Unanswered</span>`;
         }
 
@@ -300,22 +291,12 @@ function finishQuiz() {
             let classes = "";
             const isCorrect = option === ans.correct;
             const isSelected = ans.selected === option;
+            const isUnanswered = ans.selected === null;
 
-            if (isCorrect) {
-                classes += " correct-answer";
-            }
-
-            if (isSelected) {
-                classes += " user-selected";
-            }
-
-            if (isSelected && !isCorrect) {
-                classes += " wrong-selected";
-            }
-
-            if (isUnanswered) {
-                classes += " unanswered-option";
-            }
+            if (isCorrect) classes += " correct-answer";
+            if (isSelected) classes += " user-selected";
+            if (isSelected && !isCorrect) classes += " wrong-selected";
+            if (isUnanswered) classes += " unanswered-option";
 
             reviewDiv.innerHTML += `<span class="${classes}" style="margin:5px; display:inline-block;">${option}</span>`;
         });
@@ -323,21 +304,16 @@ function finishQuiz() {
         resultContainer.appendChild(reviewDiv);
     });
 
+    const restartButton = createElement("button", "quiz-button restart-button", "Restart Quiz");
 
-    const restartButton = document.createElement("button");
-    restartButton.textContent = "Restart Quiz";
-    restartButton.classList.add("quiz-button", "restart-button");
+    restartButton.addEventListener("click", () => {
+        resultContainer.innerHTML = "";
+        quizContainer.innerHTML = "";
+        quizContainer.style.display = "block";
 
-restartButton.addEventListener("click", () => {
-    resultContainer.innerHTML = "";
-    quizContainer.innerHTML = "";
-    quizContainer.style.display = "block";
-
-    // Go back to start screen properly
-    document.getElementById("start-screen").style.display = "flex";
-    document.getElementById("quiz-wrapper").style.display = "none";
-});
+        document.getElementById("start-screen").style.display = "flex";
+        document.getElementById("quiz-wrapper").style.display = "none";
+    });
 
     resultContainer.appendChild(restartButton);
 }
-
