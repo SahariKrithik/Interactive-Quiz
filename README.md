@@ -118,24 +118,3 @@ This project is open source and free to use for educational or personal purposes
 
 
 ---
-
-## Possible Expansions & Future Features
-
-While the current project meets all requirements, here are ideas for future enhancements:
-
-### Game Enhancements
-- **Dynamic Difficulty Adjustment**: Increase difficulty as user scores rise.
-- **Category Selection**: Let users choose categories (History, Science, etc.).
-- **High Score Tracking**: Store scores in `localStorage` or connect to a backend.
-
-### UI/UX Improvements
-- **Progress Bar**: Visual progress indicator per quiz.
-- **Audio Feedback**: Sounds for correct/incorrect answers or timer alerts.
-- **Accessibility Improvements**: ARIA labels, improved keyboard navigation.
-
-### Technical Expansions
-- **Question API Integration**: Load questions dynamically from a database or API.
-- **Multiplayer Mode**: Compete against friends in real-time.
-- **Leaderboard System**: Global rankings using a backend like Firebase.
-
-These features can be added modularly as the project evolves.
