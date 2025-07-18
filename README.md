@@ -1,1 +1,1 @@
-# Interactive-Quiz
+# BrainBuzz

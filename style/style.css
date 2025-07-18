@@ -1,0 +1,375 @@
+/* Base Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Wrapper Setup */
+#quiz-wrapper, #start-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Quiz Container */
+#quiz {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Question Block */
+.question {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+/* Timer */
+#timer {
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+    font-size: 20px;
+    color: white;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    padding: 10px 20px;
+    border-radius: 30px;
+    display: inline-block;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-weight: bold;
+}
+
+/* Progress */
+#progress {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.question h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+
+/* Image */
+.quiz-image {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Hint */
+.hint-text {
+    font-style: italic;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* Buttons */
+.quiz-button {
+    padding: 14px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.quiz-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Button Variants */
+.hint-button {
+    background: linear-gradient(90deg, #a78bfa, #7c3aed);
+}
+
+.hint-button:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.submit-button {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.submit-button:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.restart-button {
+    background: linear-gradient(90deg, #667eea, #6d28d9);
+    padding: 12px 30px;
+    margin: 40px auto 60px auto; /* Space above and below */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: auto;        /* Prevent stretch */
+    min-width: 150px;   /* Keep consistent width for balance */
+    display: inline-block; /* For compact size */
+}
+
+.restart-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Custom Radio Buttons */
+input[type="radio"] {
+    display: none;
+}
+
+/* Options Layout */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* Vertical Stretched Option Labels */
+.option-label {
+    display: block;
+    padding: 14px 20px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    background: #fff;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.option-label:hover {
+    background: #f4f4f4;
+}
+
+.option-label.selected {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    border-color: #667eea;
+    transform: scale(1.01);
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Start Screen */
+#start-screen h1 {
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+#start-button {
+    padding: 14px 32px;
+    font-size: 18px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: auto; 
+    min-width: 160px; 
+    margin: 0 auto; 
+}
+
+#start-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.correct-answer {
+    background: linear-gradient(90deg, #a8e063, #56ab2f);
+    color: white;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(86,171,47,0.3);
+    padding: 8px 12px;
+    border-radius: 25px;
+}
+
+.user-selected {
+    border: 2px solid #764ba2 !important;
+    padding: 8px 12px;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(118,75,162,0.3);
+}
+
+.wrong-selected {
+    background: #ffe6e6 !important;
+    color: #333;
+}
+
+.unanswered-tag {
+    display: inline-block;
+    background: #f0f0f0;
+    color: #999;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+.unanswered-option {
+    opacity: 0.6;
+    border: none !important;
+}
+
+.hint-text {
+    background: #fff8dc; 
+    color: #555;
+    font-size: 15px;
+    font-style: italic;
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+
+
+/* Footer */
+#footer {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: auto;
+    border-radius: 0;
+}
+
+#footer p {
+    margin: 0;
+}
+
+.social-icons {
+    margin-top: 8px;
+}
+
+.social-icons a {
+    color: white;
+    margin: 0 8px;
+    font-size: 20px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #d1c4e9;
+}
+
+/* Fade-in Animation */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#result-summary {
+    background: #fff;
+    padding: 30px 40px;        /* Increased padding for breathing space */
+    margin: 50px auto 30px auto; /* Adds top margin for visibility */
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+}
+
+#result-summary strong {
+    font-size: 20px;
+}
+
+#time-summary {
+    margin-top: 10px;
+    color: #555;
+}
+
+
+/* Responsive: Tablet & Mobile */
+@media (max-width: 900px) {
+    #quiz {
+        padding: 15px;
+    }
+
+    .quiz-image {
+        max-width: 100%;
+    }
+
+    .option-label {
+        font-size: 16px;
+        padding: 12px 16px;
+    }
+
+    .quiz-button, .restart-button {
+        font-size: 16px;
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    #quiz {
+        padding: 10px;
+    }
+
+    .quiz-image {
+        max-width: 100%;
+    }
+
+    .option-label {
+        font-size: 15px;
+    }
+
+    .quiz-button, .restart-button {
+        width: 100%;
+    }
+}

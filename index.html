@@ -3,11 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Quiz</title>
-
+    <title>BrainBuzz</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> <!-- for icons -->
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    
+
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <h1>Welcome to BrainBuzz</h1>
+        <button id="start-button">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Wrapper -->
+    <div id="quiz-wrapper" style="display: none;">
+        <div id="quiz"></div>
+        <div id="result"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <p>Webpage developed by Sahari Krithik</p>
+        <div class="social-icons">
+            <a href="https://github.com/SahariKrithik" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/sahari-krithik-a497701a9/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <!-- JS Script -->
+    <script src="./script.js"></script>
+
 </body>
 </html>
